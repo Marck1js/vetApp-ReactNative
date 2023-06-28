@@ -1,57 +1,42 @@
-import React from 'react';
-import {Text, View, StyleSheet, Pressable} from 'react-native';
+import React, {useState} from 'react';
+import {Text, View, StyleSheet, Pressable, Modal} from 'react-native';
 import {fechaToString} from '../assets';
+import {ExpandCard} from './index';
 const CardPaciente = ({item}) => {
-  let {paciente, propietario, emailPropietario, telefono, fecha, sintomas} =
-    item;
+  let { paciente,fecha } = item;
+
+  const [showExpand, setShowExpand] = useState(false);
 
   return (
-    <View style={styles.contenedor}>
-      <Pressable onPress={() => {
-        console.log('Show Data')
-      }}>
-        <View style={styles.viewText}>
-          <Text style={[styles.text, styles.textLeft]}>Paciente:</Text>
-          <Text style={[styles.text, styles.textRight]}>{paciente}</Text>
-        </View>
+    <>
+      <View style={styles.contenedor}>
+        <Pressable onLongPress={() => setShowExpand(!showExpand)}>
+          <View style={styles.viewText}>
+            <Text style={[styles.text, styles.textLeft]}>Paciente:</Text>
+            <Text style={[styles.text, styles.textRight]}>{paciente}</Text>
+          </View>
 
-        {/* <View style={styles.viewText}>
-        <Text style={[styles.text, styles.textLeft]}>Propietario</Text>
-        <Text style={[styles.text, styles.textRight]}>{propietario}</Text>
-      </View> */}
-
-        {/* <View style={styles.viewText}>
-        <Text style={[styles.text, styles.textLeft]}>Email</Text>
-        <Text style={[styles.text, styles.textRight]}>{emailPropietario}</Text>
-      </View> */}
-
-        {/* <View style={styles.viewText}>
-        <Text style={[styles.text, styles.textLeft]}>Telefono</Text>
-        <Text style={[styles.text, styles.textRight]}>{telefono}</Text>
-      </View> */}
-
-        <View style={styles.viewText}>
-          <Text style={[styles.textRight, styles.textFecha]}>
-            {fechaToString(fecha)}
-          </Text>
-        </View>
-
-        {/* <View style={[styles.viewText, styles.viewTextSintomas]}>
-        <Text style={[styles.text, styles.textLeftSintomas]}>Sintoma</Text>
-        <Text style={[styles.text, styles.textRight]}>{sintomas}</Text>
-      </View> */}
-      </Pressable>
-
-      <View style={styles.crudOptions}>
-        <Pressable style={[styles.crudPressable, styles.crudPressableEdit]}>
-          <Text style={styles.crudText}>Editar</Text>
+          <View style={styles.viewText}>
+            <Text style={[styles.textRight, styles.textFecha]}>
+              {fechaToString(fecha)}
+            </Text>
+          </View>
         </Pressable>
 
-        <Pressable style={[styles.crudPressable, styles.crudPressableDelete]}>
-          <Text style={styles.crudText}>Eliminar</Text>
-        </Pressable>
+        <View style={styles.crudOptions}>
+          <Pressable style={[styles.crudPressable, styles.crudPressableEdit]}>
+            <Text style={styles.crudText}>Editar</Text>
+          </Pressable>
+
+          <Pressable style={[styles.crudPressable, styles.crudPressableDelete]}>
+            <Text style={styles.crudText}>Eliminar</Text>
+          </Pressable>
+        </View>
       </View>
-    </View>
+      <Modal visible={showExpand}>
+        <ExpandCard item={item} setShowExpand={setShowExpand} />
+      </Modal>
+    </>
   );
 };
 

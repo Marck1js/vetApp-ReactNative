@@ -44,12 +44,7 @@ const Formulario = ({showModal, setShowModal, pacientes, setPacientes}) => {
 
     setPacientes([...pacientes, nuevoPaciente]);
     // -Setear formulario a vacio
-    setPaciente('');
-    setPropietario('');
-    setEmailPropietario('');
-    setFecha(new Date());
-    setTelefono('');
-    setSintomas('');
+  
 
     Alert.alert('Exito', 'Paciente Creado Exitosamente', [
       {
@@ -59,6 +54,13 @@ const Formulario = ({showModal, setShowModal, pacientes, setPacientes}) => {
         },
       },
     ]);
+
+    setPaciente('');
+    setPropietario('');
+    setEmailPropietario('');
+    setFecha(new Date());
+    setTelefono('');
+    setSintomas('');
   };
 
   return (
